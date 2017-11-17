@@ -38,14 +38,14 @@ const initScatterPlot = function() {
   
     // change string (from CSV) into number format
     data.forEach(function(d) {
-      d["perf_idx"] = parseInt(d["perf_idx"]);
+      d["perf_idx"] = 1 - parseFloat(d["perf_idx"]);
       d["time"] = new Date(d["time"]);
 console.log(d.time)
     });
   
     // don't want dots overlapping axis, so add in buffer to data domain
     xScale.domain(d3.extent(data, d => d.time));
-    yScale.domain([d3.min(data, yValue)-1, d3.max(data, yValue)+1]);
+    yScale.domain([0, 1]);
   
     // x-axis
     svg.append("g")
@@ -69,7 +69,7 @@ console.log(d.time)
         .attr("y", 6)
         .attr("dy", ".71em")
         .style("text-anchor", "end")
-        .text("Perf idx");
+        .text("val error");
   
     // draw dots
     svg.selectAll(".dot")
